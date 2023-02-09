@@ -21,7 +21,12 @@ OPEN cur1 SCROLL FOR SELECT *
     LOOP 
     FETCH NEXT FROM cur1  INTO rRecord;
      IF NOT FOUND THEN 
+     COMMIT ; 
+     OPEN cur1 SCROLL FOR SELECT * 
+     FROM lab.testecur1 ;
      MOVE FIRST IN cur1;
+     FETCH NEXT FROM cur1  INTO rRecord;
+     EXIT WHEN NOT FOUND ;
      END IF;
     BEGIN 
         UPDATE lab.testecur1 SET descricao = 'random()::VARCHAR(80) '
@@ -32,7 +37,6 @@ OPEN cur1 SCROLL FOR SELECT *
         FROM generate_series(1 , 2 , 1) gen
         CROSS JOIN generate_series(1 , 2 ,1) valor 
         CROSS JOIN lab.testecur1tipo t ;
-        COMMIT;
     END ;
     END LOOP ;
 
