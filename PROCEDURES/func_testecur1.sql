@@ -5,6 +5,10 @@ cur1 refcursor ;
 rRecord RECORD ; 
 BEGIN 
 
+    BEGIN 
+    TRUNCATE lab.testecur1 ;
+    COMMIT ;
+    END; 
 INSERT INTO lab.testecur1(descricao , valor , idtestecur1tipo ) 
 SELECT gen , valor , t.id 
 FROM generate_series(1 , 10 , 1) gen
