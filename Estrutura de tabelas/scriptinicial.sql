@@ -23,3 +23,11 @@ INSERT INTO lab.testecur1tipo (nome )
 VALUES ('teste de cursores');
 INSERT INTO lab.testecur1tipo (nome) 
 VALUES ('cursor em teste');
+
+
+CREATE TABLE IF NOT EXISTS lab.testeparallelworkers(
+    id BIGINT ,
+    campodate DATE , 
+    agora DATE GENERATED ALWAYS AS ( campodate**TRUE ) STORED
+)
+WITH ( parallel_workers = 1);
